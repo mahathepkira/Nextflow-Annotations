@@ -3,9 +3,9 @@
 
 ## หัวข้อ
 1. [บทนำ](#1-บทนำ)
-2. [การใช้งาน nextflow-Callvariants](#2-การใช้งาน-Nextflow-Annotations)
-3. [การเตรียมเครื่องมือและข้อมูลสำหรับ nextflow-Callvariants](#3-การเตรียมเครื่องมือและข้อมูลสำหรับ-Nextflow-Annotations)
-4. [รายละเอียดขั้นตอนใน nextflow-Callvariants](#4-รายละเอียดขั้นตอนใน-Nextflow-Annotations)
+2. [การใช้งาน Nextflow-Annotations](#2-การใช้งาน-Nextflow-Annotations)
+3. [การเตรียมเครื่องมือและข้อมูลสำหรับ Nextflow-Annotations](#3-การเตรียมเครื่องมือและข้อมูลสำหรับ-Nextflow-Annotations)
+4. [รายละเอียดขั้นตอนใน Nextflow-Annotations](#4-รายละเอียดขั้นตอนใน-Nextflow-Annotations)
 5. [การปรับแต่งการ Annotations ใน VEP](#5-การปรับแต่งการ-Annotations-ใน-VEP)
 6. [Output](#6-Output)
 
@@ -22,5 +22,5 @@
 7. VCF stats
 8. Convert VCF to BED,BIM,FAM and hmp
 
-![ภาพ nextflow](snpEff.drawio.png)
+![ภาพ nextflow](SnpEff.drawio.png)
 
