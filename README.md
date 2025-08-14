@@ -42,3 +42,13 @@ nextflow run main.nf -profile gb --input <path-data> --vcf_compare <path>/{compa
 ```bash
 nextflow run main.nf -profile gb --input <path-data> --mode custom --species <species-samples> --fasta <path-fasta> --gff <path-gff> --output <path-results>
 ```
+
+### Options
+- `--input` = โฟลเดอร์ input (จำเป็น:ค่าเริ่มต้น:data)
+- `--output` = โฟล์เดอร์ output (จำเป็น:ค่าเริ่มต้น:output)
+- - `--mode`  = เลือกไฟล์ config ในการรัน Nextflow
+- `--vcf_compare` = เส้นทางไฟล์ VCF ในการเปรียบเทียบในขั้นตอน Comapare_VCF (ไม่จำเป็น)
+- `--fasta`  = เลือกไฟล์ config ในการรัน Nextflow
+- `--gff`  = เลือกไฟล์ config ในการรัน Nextflow
+-  `--species`  = เลือกไฟล์ config ในการรัน Nextflow
+-  `SnpSift`  = เลือกไฟล์ config ในการรัน Nextflow
