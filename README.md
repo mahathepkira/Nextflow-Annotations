@@ -24,15 +24,21 @@
 
 ## 2. การใช้งาน Nextflow-Annotations
 ### การใช้งานแบบไม่ใช้ขั้นตอน Comapare_VCF 
-ผู้ใช้งานสามารถใช้คำสั่งต่อไปนี้ในการสั่งใช้งาน Nextflow-Annotations โดยข้อมูลที่อยู่ใน data จะต้องอยู่ในรูป vcf.gz โดย workflow การทำงานจะเป็นไปตามเส้นแดง
+ผู้ใช้งานสามารถใช้คำสั่งต่อไปนี้ในการสั่งใช้งาน Nextflow-Annotations โดยข้อมูลที่อยู่ใน data จะต้องอยู่ในรูป vcf.gz และจะต้องระบุ `--species` ที่ต้องการ Annotations โดย workflow การทำงานจะเป็นไปตามเส้นแดง
 
 ```bash
-nextflow run main.nf -profile gb --input <path-data> --output <path-results>
+nextflow run main.nf -profile gb --input <path-data>  --species <species-samples>  --output <path-results>
 ```
 ### การใช้งานแบบใช้ขั้นตอน Compare_VCF 
 ผู้ใช้งานสามารถใช้ option `--vcf_compare` ในการระบุเส้นทางของไฟล์ VCF ที่จะใช้ในการเปรียบเทียบ โดย workflow การทำงานจะเป็นไปตามเส้นเขียว
 
 ```bash
-nextflow run main.nf -profile gb --input <path-data> --vcf_compare <path>/{compare}.vcf.gz --output <path-results>
+nextflow run main.nf -profile gb --input <path-data> --vcf_compare <path>/{compare}.vcf.gz --species <species-samples>  --output <path-results>
 ```
 
+### การใช้งานแบบใช้การสร้าง Database เอง 
+ผู้ใช้งานสามารถใช้ `--mode custom` ในการสร้าง Databese ในการ Annotations เอง ด้วยไฟล์  `fasta ` และ  `gff ` โดย workflow การทำงานจะเป็นไปตามเส้นสีน้ำเงิน ซึ่งเหมาะสำหรับในกรณีที่ผู้ใช้ต้องการทำงานกับ species ที่ไม่มีอยู่ใน snpEff 
+
+```bash
+nextflow run main.nf -profile gb --input <path-data> --mode custom --species <species-samples> --fasta <path-fasta> --gff <path-gff> --output <path-results>
+```
