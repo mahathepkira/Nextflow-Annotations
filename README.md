@@ -16,9 +16,9 @@
 1. การทำ Variant Annotations
 2. การสร้าง Database (BuildCustomDB)
 3. การเปรียบเทียบข้อมูล Variant ที่ซ้ำกับข้อมูล Variant ที่มีอยู่ (Comapare_VCF)
-3.1 การดึงข้อมูล Variant Annotations ที่ซ้ำกับข้อมูล Variant ที่มีอยู่ (Call_ANN)
-3.2 การรวมไฟล์ (Combine_VCF)
-4. การใช่ SnpSift (ANN_SnpSift)
+4. การดึงข้อมูล Variant Annotations ที่ซ้ำกับข้อมูล Variant ที่มีอยู่ (Call_ANN)
+5. การรวมไฟล์ (Combine_VCF)
+6. การใช่ SnpSift (ANN_SnpSift)
 
 ![ภาพ nextflow](SnpEff.drawio.png)
 
