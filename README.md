@@ -43,6 +43,13 @@ nextflow run main.nf -profile gb --input <path-data> --vcf_compare <path>/{compa
 nextflow run main.nf -profile gb --input <path-data> --mode custom --species <species-samples> --fasta <path-fasta> --gff <path-gff> --output <path-results>
 ```
 
+### การใช้งานแบบใช้ขั้นตอน ANN_SnpSift
+ผู้ใช้งานสามารถใช้ option `--SnpSift` โดย workflow การทำงานจะเป็นไปตามเส้นส้ม
+
+```bash
+nextflow run main.nf -profile gb --input <path-data> --SnpSift on --species <species-samples>  --output <path-results>
+```
+
 ### Options
 - `--input` = โฟลเดอร์ input (จำเป็น:ค่าเริ่มต้น:data)
 - `--output` = โฟล์เดอร์ output (จำเป็น:ค่าเริ่มต้น:output)
@@ -51,4 +58,42 @@ nextflow run main.nf -profile gb --input <path-data> --mode custom --species <sp
 - `--fasta`  = เลือกไฟล์ config ในการรัน Nextflow
 - `--gff`  = เลือกไฟล์ config ในการรัน Nextflow
 -  `--species`  = เลือกไฟล์ config ในการรัน Nextflow
--  `SnpSift`  = เลือกไฟล์ config ในการรัน Nextflow
+-  `--SnpSift`  = เลือกไฟล์ config ในการรัน Nextflow
+
+## 3. การเตรียมเครื่องมือและข้อมูลสำหรับ nextflow-vep
+### เครืองมือ 
+1. Nextflow: version 19 
+2. Variant Annotations: snpEff version 113
+3. BuildCustomDB: snpEff version 113
+4. Comapare_VCF: BCFTools version 1.17
+5. Call_ANN: BCFtools version 1.17
+6. Combine_VEP: BCFTools version 1.17
+7. ANN_SnpSift: snpEff version 113 
+
+### การเตรียม Config
+ผู้ใช้งานสามารปรับแต่งเครื่องมือที่ใช้งานในไฟล์ gb.config ให้เหมาะสมกับทรัพยากรในเครื่อง โดย gb.config จะทำงานรวมกับ nextflow.config โดยจะใช้ตัวเลือก `-profile` เพื่อเลือก config ที่จะใช้งาน
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
