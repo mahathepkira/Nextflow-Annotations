@@ -72,11 +72,57 @@ nextflow run main.nf -profile gb --input <path-data> --SnpSift on --species <spe
 
 ### การเตรียม Config
 ผู้ใช้งานสามารปรับแต่งเครื่องมือที่ใช้งานในไฟล์ gb.config ให้เหมาะสมกับทรัพยากรในเครื่อง โดย gb.config จะทำงานรวมกับ nextflow.config โดยจะใช้ตัวเลือก `-profile` เพื่อเลือก config ที่จะใช้งาน
+```bash
+process {
+  executor = 'slurm'
+  queue = 'memory'
+  cache = 'lenient'
 
 
+  withName: ANN_snpEff {
+  module = 'snpEff/5.2c-GCCcore-12.2.0-Java-11:HTSlib/1.9-foss-2018b'
+  cpus = 8
+  memory = '16 GB'
+  }
+
+  withName: BuildCustomDB {
+  module = 'snpEff/5.2c-GCCcore-12.2.0-Java-11:HTSlib/1.9-foss-2018b'
+  cpus = 8
+  memory = '16 GB'
+  }
+
+  withName: ANN_SnpSift {
+  module = 'snpEff/5.2c-GCCcore-12.2.0-Java-11:BCFtools/1.17-GCC-12.2.0'
+  cpus = 8
+  memory = '16 GB'
+  }
+
+  withName: Compare_vcf {
+  module = 'BCFtools/1.17-GCC-12.2.0'
+  cpus = 4
+  memory = '8 GB'
+  }
+
+  withName: Combine_VCF {
+  module = 'BCFtools/1.17-GCC-12.2.0'
+  cpus = 4
+  memory = '8 GB'
+  }
+
+  withName: Call_ANN {
+  module = 'BCFtools/1.17-GCC-12.2.0'
+  cpus = 4
+  memory = '8 GB'
+  }
 
 
+}
 
+singularity {
+    enabled = true
+    autoMounts = true
+}
+```
 
 
 ## 4. รายละเอียดขั้นตอนใน nextflow-vep
