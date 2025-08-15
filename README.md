@@ -79,17 +79,167 @@ nextflow run main.nf -profile gb --input <path-data> --SnpSift on --species <spe
 
 
 
+## 4. รายละเอียดขั้นตอนใน nextflow-vep
+### การทำ Variant Annotations	(ANN_VEP)
+สำหรับเครื่องมือชีวสารสนเทศที่ใช้ในขั้นตอนการทำ Variant Annotations ได้แก่ snpEff (version 113) ทำการ Annotations
+```bash
+process ANN_snpEff {
+
+  tag { "${vcfgz}" }
+
+  publishDir "${outputPrefixPath(params, task)}"
+  publishDir "${s3OutputPrefixPath(params, task)}"
+
+  input:
+  file(vcfgz)
+  val extraOpts
+
+  output:
+  file("*ann.vcf.gz")
+  file("*summary.genes.txt")
+  file("*summary.html")
+
+  script:
+
+  prefix=vcfgz.simpleName
+  """
+
+  snpEff -Xmx16g ${extraOpts} -dataDir /nbt_main/home/lattapol/nextflow-annotatons/bin/data -c /nbt_main/home/lattapol/nextflow-annotatons/bin/snpEff.config -v ${params.species} ${vcfgz} -stats ${prefix}_summary.html| bgzip -c > ${prefix}.ann.vcf.gz
+
+  """
+}
+```
+สำหรับเครื่องมือชีวสารสนเทศที่ใช้ในขั้นตอนการทำ Variant Annotations ได้แก่ snpEff (version 113) ทำการ Annotations
+```bash
+process BuildCustomDB {
+
+  tag { "${params.species}" }
+
+  publishDir "${outputPrefixPath(params, task)}"
+  publishDir "${s3OutputPrefixPath(params, task)}"
+
+  input:
+  path fasta
+  path gff
+
+  output:
+  file("snpeff_build.log")
 
 
+  script:
 
+  """
+  mkdir -p /nbt_main/home/lattapol/nextflow-annotatons/bin/data/${params.species}
+  cp ${fasta}  /nbt_main/home/lattapol/nextflow-annotatons/bin/data/${params.species}/sequences.fa
+  cp ${gff}  /nbt_main/home/lattapol/nextflow-annotatons/bin/data/${params.species}/genes.gff
 
+  echo "${params.species}.genome : ${params.species}" >> /nbt_main/home/lattapol/nextflow-annotatons/bin/snpEff.config
 
+  snpEff build -gff3 -v ${params.species} -noCheckCds -noCheckProtein -dataDir /nbt_main/home/lattapol/nextflow-annotatons/bin/data -c /nbt_main/home/lattapol/nextflow-annotatons/bin/snpEff.config > snpeff_build.log
+  """
+}
+```
+### การทำเปรียบเทียบข้อมูล Variant ที่ซ้ำกับข้อมูล Variant ที่มีอยู่ (Comapare_VCF)
+สำหรับเครื่องมือชีวสารสนเทศที่ใช้ในขั้นตอนการทำ Compare_VCF ได้แก่ BCFTools (version 1.17) โดยใช้ `bcftools isec` ในการดึงข้อมูล Variants ที่ซ้ำกับ `--vcf_compare` ไว้ในไฟล์ {samples}_overlap.vcf.gz และดึงข้อมูล Variants ที่ไม่ซ้ำ `--vcf_compare` ไว้ในไฟล์ {samples}_unique.vcf.gz โดยเกณฑ์ในการดึงข้อมูลที่ซ้ำกันคือจะต้องมีตำแหน่งที่ตรงกันและมี ALT กับ REF ที่เหมือนกัน
+```bash
+process Compare_vcf {
 
+  tag { "${vcfgz}" }
+  publishDir "${params.outdir}/Compare_results"
 
+  input:
+  file(vcfgz)
 
+  output:
+  file("${prefix}_overlap.vcf.gz")
+  file("${prefix}_unique.vcf.gz")
 
+  script:
 
+  prefix=vcfgz.simpleName
+  """
+  tabix ${vcfgz}
+  bcftools isec ${params.vcf_compare} ${vcfgz} -n=2 -w2 -Oz -o ${prefix}_overlap.vcf.gz
+  bcftools isec ${params.vcf_compare} ${vcfgz} -n=1 -w2 -Oz -o ${prefix}_unique.vcf.gz
 
+  """
+}
+```
+### การดึงข้อมูล Variant Annotations จากข้อมูล Variant ที่มีอยู่ (Call_ANN)
+สำหรับเครื่องมือชีวสารสนเทศที่ใช้ในขั้นตอนการทำ Call_ANN ได้แก่ BCFTools (version 1.17) โดยใช้ `bcftools annotate` ในการดึงข้อมูล Annotations ของ variants ใน `--vcf_compare` ที่ซ้ำกับข้อมูลใน {samples}_overlap.vcf.gz จากในขั้นตอน Compare_VCF มาใส่ให้ {samples}_shared.vcf.gz โดยจะทำการเลือก tag `CSQ` ในคอลัมน์ INFO ที่จะมีการบันทึกข้อมูล Annotations มาใส่ให้กับ variants ที่ซ้ำกับ `--vcf_compare` แต่ยังไม่มีข้อมูล Annotations
+```bash
+process Call_ANN {
+
+  tag "${vcfgz}"
+  publishDir "${params.outdir}/Call_ANN"
+
+  input:
+  file(vcfgz)
+
+  output:
+  file("*.vcf.gz")
+
+  script:
+
+  prefix=vcfgz.simpleName
+
+  """
+  tabix ${vcfgz}
+  bcftools annotate -a ${params.vcf_compare} -c CHROM,POS,REF,ALT,INFO/CSQ -Oz -o ${prefix}_shared.vcf.gz ${vcfgz}
+  """
+}
+```
+### การรวมไฟล์ (Combine_VCF)
+สำหรับเครื่องมือชีวสารสนเทศที่ใช้ในขั้นตอนการทำ Combine_VCF ได้แก่ BCFTools (version 1.17) ทำการรวมไฟล์โดยใช้คำสั่ง `bcftools concat` ในการรวมข้อมูลจากที่ทำการดึงข้อมูล Annotaions ในขั้นตอน Call_ANN และไฟล์ที่ทำการ Varinats Annotations ในขั้นตอน ANN_VEP ให้เป็นไฟล์เดียวกัน
+```bash
+process Combine_VCF {
+
+  tag "${vcfgz}"
+  publishDir "${params.outdir}/Combine_VCF"
+
+  input:
+  file(vcfgz1)
+  file(vcfgz2)
+
+  output:
+  file("*vcf.gz")
+
+  script:
+
+  prefix=vcfgz1.simpleName
+
+  """
+  tabix ${vcfgz1}
+  tabix ${vcfgz2}
+  bcftools concat -Oz -o ${prefix}_combined.vcf.gz ${vcfgz1} ${vcfgz2}
+  """
+}
+```
+สำหรับเครื่องมือชีวสารสนเทศที่ใช้ในขั้นตอนการทำ Variant Annotations ได้แก่ snpEff (version 113) ทำการ Annotations
+```bash
+process ANN_SnpSift {
+
+  tag "${vcf_ann}"
+
+  publishDir "${outputPrefixPath(params, task)}"
+  publishDir "${s3OutputPrefixPath(params, task)}"
+
+  input:
+  file(vcf_ann)
+
+  output:
+  path "*"
+
+  script:
+
+  prefix=vcf_ann.simpleName
+
+  """
+  zcat ${vcf_ann} | snpSift filter "(QUAL>=50)" > ${prefix}_SnpSift.vcf
+  bgzip ${prefix}_SnpSift.vcf
+  """
+}
+```
 
 
 
