@@ -286,8 +286,7 @@ process ANN_SnpSift {
   """
 }
 ```
-
-
+## 6. Output
 
 
 
