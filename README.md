@@ -18,7 +18,7 @@
 3. การเปรียบเทียบข้อมูล Variant ที่ซ้ำกับข้อมูล Variant ที่มีอยู่ (Comapare_VCF)
 4. การดึงข้อมูล Variant Annotations ที่ซ้ำกับข้อมูล Variant ที่มีอยู่ (Call_ANN)
 5. การรวมไฟล์ (Combine_VCF)
-6. การใช่ SnpSift (ANN_SnpSift)
+6. การใช้ SnpSift (ANN_SnpSift)
 
 ![ภาพ nextflow](SnpEff.drawio.png)
 
