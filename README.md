@@ -63,12 +63,12 @@ nextflow run main.nf -profile gb --input <path-data> --SnpSift on --species <spe
 ## 3. การเตรียมเครื่องมือและข้อมูลสำหรับ nextflow-vep
 ### เครืองมือ 
 1. Nextflow: version 19 
-2. Variant Annotations: snpEff version 113
-3. BuildCustomDB: snpEff version 113
+2. Variant Annotations: snpEff version 5.2
+3. BuildCustomDB: snpEff version 5.2
 4. Comapare_VCF: BCFTools version 1.17
 5. Call_ANN: BCFtools version 1.17
 6. Combine_VEP: BCFTools version 1.17
-7. ANN_SnpSift: snpEff version 113 
+7. ANN_SnpSift: snpEff version 5.2
 
 ### การเตรียม Config
 ผู้ใช้งานสามารปรับแต่งเครื่องมือที่ใช้งานในไฟล์ gb.config ให้เหมาะสมกับทรัพยากรในเครื่อง โดย gb.config จะทำงานรวมกับ nextflow.config โดยจะใช้ตัวเลือก `-profile` เพื่อเลือก config ที่จะใช้งาน
