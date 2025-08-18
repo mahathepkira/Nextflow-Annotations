@@ -292,8 +292,20 @@ process ANN_SnpSift {
 }
 ```
 ## 6. Output
-
-
-
+### ภาพรวม Output
+```bash
+output
+├── Call_ANN
+│    ├── {samples}_overlap_shared.vcf.gz
+├── Combine_VCF
+│    ├── {samples}_combine.vcf.gz
+├── Compare_results
+│    ├── {samples}_overlap.vcf.gz
+│    └── {samples}_unique.vcf.gz
+└── ANN_snpEff
+     ├── {samples}.ann.vcf.gz 
+     ├── {samples}_summary.genes.txt       
+     └── {samples}_summary.html
+```
 
 
