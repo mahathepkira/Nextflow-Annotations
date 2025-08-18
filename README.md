@@ -24,13 +24,13 @@
 
 ## 2. การใช้งาน Nextflow-Annotations
 ### การใช้งานแบบไม่ใช้ขั้นตอน Comapare_VCF 
-ผู้ใช้งานสามารถใช้คำสั่งต่อไปนี้ในการสั่งใช้งาน Nextflow-Annotations โดยข้อมูลที่อยู่ใน data จะต้องอยู่ในรูป vcf.gz และจะต้องระบุ `--species` ที่ต้องการ Annotations โดย workflow การทำงานจะเป็นไปตามเส้นแดง
+ผู้ใช้งานสามารถใช้คำสั่งต่อไปนี้ในการสั่งใช้งาน Nextflow-Annotations โดยข้อมูลที่อยู่ใน data จะต้องอยู่ในรูป vcf.gz และจะต้องระบุ `--species` ที่ต้องการ Annotations โดย workflow การทำงานจะเป็นไปตามเส้นสีแดง
 
 ```bash
 nextflow run main.nf -profile gb --input <path-data>  --species <species-samples>  --output <path-results>
 ```
 ### การใช้งานแบบใช้ขั้นตอน Compare_VCF 
-ผู้ใช้งานสามารถใช้ option `--vcf_compare` ในการระบุเส้นทางของไฟล์ VCF ที่จะใช้ในการเปรียบเทียบ โดย workflow การทำงานจะเป็นไปตามเส้นเขียว
+ผู้ใช้งานสามารถใช้ option `--vcf_compare` ในการระบุเส้นทางของไฟล์ VCF ที่จะใช้ในการเปรียบเทียบ โดย workflow การทำงานจะเป็นไปตามเส้นสีเขียว
 
 ```bash
 nextflow run main.nf -profile gb --input <path-data> --vcf_compare <path>/{compare}.vcf.gz --species <species-samples>  --output <path-results>
@@ -44,21 +44,21 @@ nextflow run main.nf -profile gb --input <path-data> --mode custom --species <sp
 ```
 
 ### การใช้งานแบบใช้ขั้นตอน ANN_SnpSift
-ผู้ใช้งานสามารถใช้ option `--SnpSift` โดย workflow การทำงานจะเป็นไปตามเส้นส้ม
+ผู้ใช้งานสามารถใช้ option `--SnpSift` โดย workflow การทำงานจะเป็นไปตามเส้นสีส้ม
 
 ```bash
 nextflow run main.nf -profile gb --input <path-data> --SnpSift on --species <species-samples>  --output <path-results>
 ```
 
 ### Options
-- `--input` = โฟลเดอร์ input (จำเป็น:ค่าเริ่มต้น:data)
-- `--output` = โฟล์เดอร์ output (จำเป็น:ค่าเริ่มต้น:output)
-- `--mode`  = เลือกไฟล์ config ในการรัน Nextflow
+- `--input` = โฟลเดอร์ input (จำเป็น)
+- `--output` = โฟล์เดอร์ output (จำเป็น)
+- `--mode`  = เลือกไฟล์ mode ในการรัน Nextflow default หรือ custom (ค่าเริ่มต้น:default)
 - `--vcf_compare` = เส้นทางไฟล์ VCF ในการเปรียบเทียบในขั้นตอน Comapare_VCF (ไม่จำเป็น)
-- `--fasta`  = เลือกไฟล์ config ในการรัน Nextflow
-- `--gff`  = เลือกไฟล์ config ในการรัน Nextflow
--  `--species`  = เลือกไฟล์ config ในการรัน Nextflow
--  `--SnpSift`  = เลือกไฟล์ config ในการรัน Nextflow
+- `--fasta`  = ไฟล์ fasta สำหรับขั้นตอน BuildCustomDB
+- `--gff`  = ไฟล์ gff สำหรับขั้นตอน BuildCustomDB
+-  `--species`  = ชื่อ species ในการ Annotations ในขั้นตอน ANN_snpEff
+-  `--SnpSift`  = เลือก mode สำหรับ การรันขั้นตอน ANN_SnpSift on หรือ off (ค่าเริ่มต้น:off)
 
 ## 3. การเตรียมเครื่องมือและข้อมูลสำหรับ nextflow-vep
 ### เครืองมือ 
@@ -127,7 +127,7 @@ singularity {
 
 ## 4. รายละเอียดขั้นตอนใน nextflow-vep
 ### การทำ Variant Annotations	(ANN_VEP)
-สำหรับเครื่องมือชีวสารสนเทศที่ใช้ในขั้นตอนการทำ Variant Annotations ได้แก่ snpEff (version 113) ทำการ Annotations
+สำหรับเครื่องมือชีวสารสนเทศที่ใช้ในขั้นตอนการทำ Variant Annotations ได้แก่ snpEff (version 5.2) ทำการ Annotations
 ```bash
 process ANN_snpEff {
 
@@ -155,7 +155,8 @@ process ANN_snpEff {
   """
 }
 ```
-สำหรับเครื่องมือชีวสารสนเทศที่ใช้ในขั้นตอนการทำ Variant Annotations ได้แก่ snpEff (version 113) ทำการ Annotations
+### การทำสร้าง Databases ใหม่ (BuildCustomDB)
+สำหรับเครื่องมือชีวสารสนเทศที่ใช้ในขั้นตอนการทำ BuildCustomDB ได้แก่ snpEff (version 5.2) สำหรับการสร้าง Databases ใหม่ในการ Annotations ขั้นตอนนี้เหมาะสำหรับในกรณีที่ตัวอย่างของผู้ใช้ไม่มี Databases ใน snpEff 
 ```bash
 process BuildCustomDB {
 
@@ -261,7 +262,8 @@ process Combine_VCF {
   """
 }
 ```
-สำหรับเครื่องมือชีวสารสนเทศที่ใช้ในขั้นตอนการทำ Variant Annotations ได้แก่ snpEff (version 113) ทำการ Annotations
+### การใช้งาน SnpSift (ANN_SnpSift)
+สำหรับเครื่องมือชีวสารสนเทศที่ใช้ในขั้นตอนการทำ ANN_SnpSift ได้แก่ snpEff (version 5.2) สำหรับการใช้งาน SnpSift
 ```bash
 process ANN_SnpSift {
 
