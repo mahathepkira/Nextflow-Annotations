@@ -183,7 +183,9 @@ process BuildCustomDB {
 
   echo "${params.species}.genome : ${params.species}" >> /nbt_main/home/lattapol/nextflow-annotatons/bin/snpEff.config
 
-  snpEff build -gff3 -v ${params.species} -noCheckCds -noCheckProtein -dataDir /nbt_main/home/lattapol/nextflow-annotatons/bin/data -c /nbt_main/home/lattapol/nextflow-annotatons/bin/snpEff.config > snpeff_build.log
+  snpEff build -gff3 -v ${params.species} -noCheckCds -noCheckProtein \
+         -dataDir /nbt_main/home/lattapol/nextflow-annotatons/bin/data \
+         -c /nbt_main/home/lattapol/nextflow-annotatons/bin/snpEff.config > snpeff_build.log
   """
 }
 ```
