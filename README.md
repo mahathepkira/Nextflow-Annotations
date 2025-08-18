@@ -149,9 +149,10 @@ process ANN_snpEff {
 
   prefix=vcfgz.simpleName
   """
-
-  snpEff -Xmx16g ${extraOpts} -dataDir /nbt_main/home/lattapol/nextflow-annotatons/bin/data -c /nbt_main/home/lattapol/nextflow-annotatons/bin/snpEff.config -v ${params.species} ${vcfgz} -stats ${prefix}_summary.html| bgzip -c > ${prefix}.ann.vcf.gz
-
+  snpEff -Xmx16g ${extraOpts} -dataDir /nbt_main/home/lattapol/nextflow-annotatons/bin/data \
+         -c /nbt_main/home/lattapol/nextflow-annotatons/bin/snpEff.config \
+         -v ${params.species} ${vcfgz} \
+         -stats ${prefix}_summary.html| bgzip -c > ${prefix}.ann.vcf.gz
   """
 }
 ```
