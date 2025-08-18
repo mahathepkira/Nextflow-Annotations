@@ -60,7 +60,7 @@ nextflow run main.nf -profile gb --input <path-data> --SnpSift on --species <spe
 -  `--species`  = ชื่อ species ในการ Annotations ในขั้นตอน ANN_snpEff
 -  `--SnpSift`  = เลือก mode สำหรับ การรันขั้นตอน ANN_SnpSift on หรือ off (ค่าเริ่มต้น:off)
 
-## 3. การเตรียมเครื่องมือและข้อมูลสำหรับ nextflow-vep
+## 3. การเตรียมเครื่องมือและข้อมูลสำหรับ Nextflow-Annotations
 ### เครืองมือ 
 1. Nextflow: version 19 
 2. Variant Annotations: snpEff version 5.2
