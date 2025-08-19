@@ -55,9 +55,9 @@ nextflow run main.nf -profile gb --input <path-data> --SnpSift on --species <spe
 - `--output` = โฟล์เดอร์ output (จำเป็น)
 - `--mode`  = เลือกไฟล์ mode ในการรัน Nextflow default หรือ custom (ค่าเริ่มต้น:default)
 - `--vcf_compare` = เส้นทางไฟล์ VCF ในการเปรียบเทียบในขั้นตอน Comapare_VCF (ไม่จำเป็น)
-- `--fasta`  = ไฟล์ fasta สำหรับขั้นตอน BuildCustomDB
-- `--gff`  = ไฟล์ gff สำหรับขั้นตอน BuildCustomDB
--  `--species`  = ชื่อ species ในการ Annotations ในขั้นตอน ANN_snpEff
+- `--fasta`  = ไฟล์ fasta สำหรับขั้นตอน BuildCustomDB (ไม่จำเป็น)
+- `--gff`  = ไฟล์ gff สำหรับขั้นตอน BuildCustomDB (ไม่จำเป็น)
+-  `--species`  = ชื่อ species ในการ Annotations ในขั้นตอน ANN_snpEff (จำเป็น)
 -  `--SnpSift`  = เลือก mode สำหรับ การรันขั้นตอน ANN_SnpSift on หรือ off (ค่าเริ่มต้น:off)
 
 ## 3. การเตรียมเครื่องมือและข้อมูลสำหรับ Nextflow-Annotations
