@@ -304,7 +304,7 @@ process ANN_SnpSift {
 ## 6. Output
 ### ภาพรวม Output
 ```bash
-output
+Annotations
 ├── Call_ANN
 │    ├── {samples}_overlap_shared.vcf.gz
 ├── Combine_VCF
