@@ -318,4 +318,19 @@ Annotations
      └── {samples}_summary.html
 ```
 
-
+```bash
+Annotations_custom
+├── BuildCustomDB
+│    ├──snpeff_build.log
+├── Call_ANN
+│    ├── {samples}_overlap_shared.vcf.gz
+├── Combine_VCF
+│    ├── {samples}_combine.vcf.gz
+├── Compare_results
+│    ├── {samples}_overlap.vcf.gz
+│    └── {samples}_unique.vcf.gz
+└── ANN_snpEff
+     ├── {samples}.ann.vcf.gz 
+     ├── {samples}_summary.genes.txt       
+     └── {samples}_summary.html
+```
