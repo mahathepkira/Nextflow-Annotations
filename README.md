@@ -305,7 +305,7 @@ process ANN_SnpSift {
 ### ภาพรวม Output
 ```bash
 Annotations
-├── ANN_snpEff
+└── ANN_snpEff
      ├── {samples}.ann.vcf.gz 
      ├── {samples}_summary.genes.txt       
      └── {samples}_summary.html
