@@ -322,7 +322,7 @@ Annotations_custom
 ```
 
 ```bash
-Annotations_custom
+Annotations
 ├── ANN_SnpSift
 │    ├──{samples}_SnpSift.vcf.gz
 └── ANN_snpEff
