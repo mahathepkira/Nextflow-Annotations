@@ -245,7 +245,7 @@ process Call_ANN {
 
   """
   tabix ${vcfgz}
-  bcftools annotate -a ${params.vcf_compare} -c CHROM,POS,REF,ALT,INFO/CSQ -Oz -o ${prefix}_shared.vcf.gz ${vcfgz}
+  bcftools annotate -a ${params.vcf_compare} -c CHROM,POS,REF,ALT,INFO/ann -Oz -o ${prefix}_shared.vcf.gz ${vcfgz}
   """
 }
 ```
