@@ -6,8 +6,7 @@
 2. [การใช้งาน Nextflow-Annotations](#2-การใช้งาน-Nextflow-Annotations)
 3. [การเตรียมเครื่องมือและข้อมูลสำหรับ Nextflow-Annotations](#3-การเตรียมเครื่องมือและข้อมูลสำหรับ-Nextflow-Annotations)
 4. [รายละเอียดขั้นตอนใน Nextflow-Annotations](#4-รายละเอียดขั้นตอนใน-Nextflow-Annotations)
-5. [การปรับแต่งการ Annotations ใน VEP](#5-การปรับแต่งการ-Annotations-ใน-VEP)
-6. [Output](#6-Output)
+5. [Output](#5-Output)
 
 ---
 
@@ -136,7 +135,7 @@ singularity {
 
 
 ## 4. รายละเอียดขั้นตอนใน nextflow-vep
-### การทำ Variant Annotations	(ANN_VEP)
+### การทำ Variant Annotations	(ANN_snpEff)
 สำหรับเครื่องมือชีวสารสนเทศที่ใช้ในขั้นตอนการทำ Variant Annotations ได้แก่ snpEff (version 5.2) ทำการ Annotations
 ```bash
 process ANN_snpEff {
