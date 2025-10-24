@@ -134,7 +134,7 @@ singularity {
 ```
 
 
-## 4. รายละเอียดขั้นตอนใน nextflow-vep
+## 4. รายละเอียดขั้นตอนใน Nextflow-Annotations
 ### การทำ Variant Annotations	(ANN_snpEff)
 สำหรับเครื่องมือชีวสารสนเทศที่ใช้ในขั้นตอนการทำ Variant Annotations ได้แก่ snpEff (version 5.2) ทำการ Annotations
 ```bash
