@@ -300,7 +300,7 @@ process ANN_SnpSift {
   """
 }
 ```
-## 6. Output
+## 5. Output
 ### ภาพรวม Output
 ```bash
 Annotations
