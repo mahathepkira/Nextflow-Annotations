@@ -71,13 +71,19 @@ nextflow run main.nf -profile gb --input <path-data> \
 
 ## 3. การเตรียมเครื่องมือและข้อมูลสำหรับ Nextflow-Annotations
 ### เครืองมือ 
-1. Nextflow: version 19 
-2. Variant Annotations: snpEff version 5.2
-3. BuildCustomDB: snpEff version 5.2
-4. Comapare_VCF: BCFTools version 1.17
-5. Call_ANN: BCFtools version 1.17
-6. Combine_VEP: BCFTools version 1.17
-7. ANN_SnpSift: snpEff version 5.2
+Nextflow: version 19 
+1. Variant Annotations
+   - snpEff version 5.2
+2. BuildCustomDB
+   - snpEff version 5.2
+3. Comapare_VCF
+   - BCFTools version 1.17
+4. Call_ANN
+   - BCFtools version 1.17
+5. Combine_VEP
+   - BCFTools version 1.17
+6. ANN_SnpSift
+   - snpEff version 5.2
 
 ### การเตรียม Config
 ผู้ใช้งานสามารปรับแต่งเครื่องมือที่ใช้งานในไฟล์ gb.config ให้เหมาะสมกับทรัพยากรในเครื่อง โดย gb.config จะทำงานรวมกับ nextflow.config โดยจะใช้ตัวเลือก `-profile` เพื่อเลือก config ที่จะใช้งาน
