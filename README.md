@@ -288,7 +288,7 @@ process Combine_VCF {
 process ANN_SnpSift {
 
   tag "${vcf_ann}"
-
+  
   publishDir "${outputPrefixPath(params, task)}"
   publishDir "${s3OutputPrefixPath(params, task)}"
 
@@ -303,7 +303,7 @@ process ANN_SnpSift {
   prefix=vcf_ann.simpleName
 
   """
-  zcat ${vcf_ann} | snpSift filter "(QUAL>=50)" > ${prefix}_SnpSift.vcf
+  zcat ${vcf_ann} | snpSift filter "(QUAL>=${params.SnpSift_snpsQuality})" > ${prefix}_SnpSift.vcf
   bgzip ${prefix}_SnpSift.vcf
   """
 }
