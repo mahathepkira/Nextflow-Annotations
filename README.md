@@ -159,15 +159,17 @@ process ANN_snpEff {
   file("*ann.vcf.gz")
   file("*summary.genes.txt")
   file("*summary.html")
+  file("*summary.csv")
 
   script:
-
+  
   prefix=vcfgz.simpleName
   """
+  
   snpEff -Xmx16g ${extraOpts} -dataDir /nbt_main/home/lattapol/nextflow-annotatons/bin/data \
-         -c /nbt_main/home/lattapol/nextflow-annotatons/bin/snpEff.config \
-         -v ${params.species} ${vcfgz} \
-         -stats ${prefix}_summary.html| bgzip -c > ${prefix}.ann.vcf.gz
+                              -c /nbt_main/home/lattapol/nextflow-annotatons/bin/snpEff.config \
+                              -v ${params.species} ${vcfgz} \
+                              -stats ${prefix}_summary.html -csvStats ${prefix}_summary.csv | bgzip -c > ${prefix}.ann.vcf.gz  
   """
 }
 ```
