@@ -261,15 +261,17 @@ process Call_ANN {
 ```bash
 process Combine_VCF {
 
-  tag "${vcfgz}"
-  publishDir "${params.outdir}/Combine_VCF"
+  tag "${vcfgz1}"
+  
+  publishDir "${outputPrefixPath(params, task)}"
+  publishDir "${s3OutputPrefixPath(params, task)}"
 
   input:
   file(vcfgz1)
   file(vcfgz2)
 
   output:
-  file("*vcf.gz")
+  file("${prefix}_combined.sorted.vcf.gz")
 
   script:
 
@@ -277,8 +279,13 @@ process Combine_VCF {
 
   """
   tabix ${vcfgz1}
+  bcftools sort -Oz -o ${vcfgz1}.sorted.vcf.gz ${vcfgz1}
   tabix ${vcfgz2}
-  bcftools concat -Oz -o ${prefix}_combined.vcf.gz ${vcfgz1} ${vcfgz2}
+  bcftools sort -Oz -o ${vcfgz2}.sorted.vcf.gz ${vcfgz2}
+  tabix ${vcfgz1}.sorted.vcf.gz
+  tabix ${vcfgz2}.sorted.vcf.gz
+  bcftools concat -a -Oz -o ${prefix}_combined.vcf.gz ${vcfgz1}.sorted.vcf.gz ${vcfgz2}.sorted.vcf.gz
+  bcftools sort -Oz -o ${prefix}_combined.sorted.vcf.gz ${prefix}_combined.vcf.gz 
   """
 }
 ```
