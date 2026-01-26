@@ -68,6 +68,7 @@ nextflow run main.nf -profile gb --input <path-data> \
 - `--gff`  = ไฟล์ gff สำหรับขั้นตอน BuildCustomDB (ไม่จำเป็น)
 -  `--species`  = ชื่อ species ในการ Annotations ในขั้นตอน ANN_snpEff (จำเป็น)
 -  `--SnpSift`  = เลือก mode สำหรับ การรันขั้นตอน ANN_SnpSift on หรือ off (ค่าเริ่มต้น:off)
+-  `--SnpSift_snpsQuality` = snps Quality ที่ต้องการกรอง (ค่าเริ่มต้น:50)
 
 ## 3. การเตรียมเครื่องมือและข้อมูลสำหรับ Nextflow-Annotations
 ### เครืองมือ 
